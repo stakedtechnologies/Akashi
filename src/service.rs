@@ -5,7 +5,7 @@
 use std::sync::Arc;
 use log::info;
 use transaction_pool::{self, txpool::{Pool as TransactionPool}};
-use rust_vreath_runtime::{self, GenesisConfig, opaque::Block, RuntimeApi};
+use akashi_runtime::{self, GenesisConfig, opaque::Block, RuntimeApi};
 use substrate_service::{
 	FactoryFullConfiguration, LightComponents, FullComponents, FullBackend,
 	FullClient, LightClient, LightBackend, FullExecutor, LightExecutor,
@@ -24,9 +24,9 @@ pub use substrate_executor::NativeExecutor;
 // Our native executor instance.
 native_executor_instance!(
 	pub Executor,
-	rust_vreath_runtime::api::dispatch,
-	rust_vreath_runtime::native_version,
-	include_bytes!("../runtime/wasm/target/wasm32-unknown-unknown/release/rust_vreath_runtime_wasm.compact.wasm")
+	akashi_runtime::api::dispatch,
+	akashi_runtime::native_version,
+	include_bytes!("../runtime/wasm/target/wasm32-unknown-unknown/release/akashi_runtime_wasm.compact.wasm")
 );
 
 #[derive(Default)]

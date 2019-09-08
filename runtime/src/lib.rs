@@ -33,6 +33,7 @@ pub use balances::Call as BalancesCall;
 pub use runtime_primitives::{Permill, Perbill};
 pub use timestamp::BlockPeriod;
 pub use support::{StorageValue, construct_runtime};
+pub use support::dispatch::{Result,Vec};
 
 /// The type that is used for identifying authorities.
 pub type AuthorityId = <AuthoritySignature as Verify>::Signer;
@@ -56,7 +57,12 @@ pub type BlockNumber = u64;
 pub type Nonce = u64;
 
 /// Used for the module template in `./template.rs`
-mod template;
+pub mod state;
+
+pub mod token;
+
+pub mod ethereum;
+
 
 /// Opaque types. These are used by the CLI to instantiate machinery that don't need to know
 /// the specifics of the runtime. They can then be made to be agnostic over specific formats
@@ -92,8 +98,8 @@ pub mod opaque {
 
 /// This runtime version.
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: create_runtime_str!("rust-vreath"),
-	impl_name: create_runtime_str!("rust-vreath"),
+	spec_name: create_runtime_str!("akashi"),
+	impl_name: create_runtime_str!("akashi"),
 	authoring_version: 3,
 	spec_version: 4,
 	impl_version: 4,
@@ -188,9 +194,11 @@ impl sudo::Trait for Runtime {
 }
 
 /// Used for the module template in `./template.rs`
-impl template::Trait for Runtime {
+
+impl ethereum::Trait for Runtime {
 	type Event = Event;
 }
+
 
 construct_runtime!(
 	pub enum Runtime with Log(InternalLog: DigestItem<Hash, AuthorityId, AuthoritySignature>) where
@@ -205,8 +213,7 @@ construct_runtime!(
 		Indices: indices,
 		Balances: balances,
 		Sudo: sudo,
-		// Used for the module template in `./template.rs`
-		TemplateModule: template::{Module, Call, Storage, Event<T>},
+		Ethereum: ethereum::{Module, Call, Storage, Event<T>},
 	}
 );
 
@@ -235,6 +242,7 @@ impl_runtime_apis! {
 		}
 
 		fn execute_block(block: Block) {
+			//ethereum::Lightclient::record_header(origin: T::Origin);
 			Executive::execute_block(block)
 		}
 

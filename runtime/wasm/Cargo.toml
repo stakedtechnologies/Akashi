@@ -3,7 +3,7 @@ crate-type = ['cdylib']
 
 [features]
 default = []
-std = ['rust-vreath-runtime/std']
+std = ['akashi-runtime/std']
 
 [workspace]
 members = []
@@ -14,8 +14,8 @@ panic = 'abort'
 [package]
 authors = ['Parity Technologies <admin@parity.io>']
 edition = '2018'
-name = 'rust-vreath-runtime-wasm'
+name = 'akashi-runtime-wasm'
 version = '1.0.0'
-[dependencies.rust-vreath-runtime]
+[dependencies.akashi-runtime]
 default-features = false
 path = '..'

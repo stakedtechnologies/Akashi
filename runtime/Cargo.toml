@@ -25,7 +25,7 @@ std = [
 [package]
 authors = ['Parity Technologies <admin@parity.io>']
 edition = '2018'
-name = 'rust-vreath-runtime'
+name = 'akashi-runtime'
 version = '1.0.0'
 [dependencies.aura]
 default_features = false

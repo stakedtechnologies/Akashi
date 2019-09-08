@@ -1,5 +1,5 @@
 use primitives::{ed25519, sr25519, Pair};
-use rust_vreath_runtime::{
+use akashi_runtime::{
 	AccountId, GenesisConfig, ConsensusConfig, TimestampConfig, BalancesConfig,
 	SudoConfig, IndicesConfig,
 };
@@ -44,9 +44,14 @@ impl Alternative {
 				"Development",
 				"dev",
 				|| testnet_genesis(vec![
-					authority_key("Alice")
+					authority_key("Alice"),
 				], vec![
-					account_key("Alice")
+					account_key("Alice"),
+					account_key("Bob"),
+					account_key("Charlie"),
+					account_key("Dave"),
+					account_key("Eve"),
+					account_key("Ferdie"),
 				],
 					account_key("Alice")
 				),
@@ -93,7 +98,7 @@ impl Alternative {
 fn testnet_genesis(initial_authorities: Vec<AuthorityId>, endowed_accounts: Vec<AccountId>, root_key: AccountId) -> GenesisConfig {
 	GenesisConfig {
 		consensus: Some(ConsensusConfig {
-			code: include_bytes!("../runtime/wasm/target/wasm32-unknown-unknown/release/rust_vreath_runtime_wasm.compact.wasm").to_vec(),
+			code: include_bytes!("../runtime/wasm/target/wasm32-unknown-unknown/release/akashi_runtime_wasm.compact.wasm").to_vec(),
 			authorities: initial_authorities.clone(),
 		}),
 		system: None,
